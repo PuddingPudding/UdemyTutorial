@@ -12,6 +12,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private RectTransform m_heartPos;
     [SerializeField] private int m_iCurrentHP = 5;
     [SerializeField] private GameObject m_goSword;
+    [SerializeField] private float m_fSwordForce = 200;
+    private bool m_bCanMove = true;
     private List<Image> m_imgArrHP = new List<Image>();
 
     // Use this for initialization
@@ -23,30 +25,43 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        this.PlayerControl();
+    }
+
+    void PlayerControl()
+    {
         Vector2 v2MoveDir = Vector2.zero;
         float fAnimSpeed = 1; //動畫播放速度，預設為1
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        if (this.m_bCanMove)
         {
-            v2MoveDir = Vector2.up;
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            {
+                v2MoveDir = Vector2.up;
+            }
+            else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            {
+                v2MoveDir = Vector2.down;
+            }
+            else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                v2MoveDir = Vector2.left;
+            }
+            else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                v2MoveDir = Vector2.right;
+            }
+            else //若什麼都不按，則把動畫播放速度調為0
+            {
+                fAnimSpeed = 0;
+            }
         }
-        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-        {
-            v2MoveDir = Vector2.down;
-        }
-        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            v2MoveDir = Vector2.left;
-        }
-        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-        {
-            v2MoveDir = Vector2.right;
-        }
-        else //若什麼都不按，則把動畫播放速度調為0
+        else
         {
             fAnimSpeed = 0;
         }
 
-        if(Input.GetKeyDown(KeyCode.Z) )
+
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             this.Attack();
         }
@@ -65,7 +80,7 @@ public class PlayerScript : MonoBehaviour
         this.Movement(v2MoveDir);
         this.m_animPlayerAnimator.SetFloat("SpeedX", v2MoveDir.x);
         this.m_animPlayerAnimator.SetFloat("SpeedY", v2MoveDir.y);
-        this.m_animPlayerAnimator.speed = fAnimSpeed;        
+        this.m_animPlayerAnimator.speed = fAnimSpeed;
     }
 
     void Movement(Vector2 _v2Dir)
@@ -120,22 +135,36 @@ public class PlayerScript : MonoBehaviour
 
     private void Attack()
     {
-        GameObject goSwordTemp = Instantiate(this.m_goSword, this.transform.position , this.m_goSword.transform.rotation);
-        if (this.m_animPlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("WalkingDown"))
+        if(this.m_bCanMove)
         {
-            goSwordTemp.transform.localEulerAngles = new Vector3(0,0,180);
-        }
-        else if (this.m_animPlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("WalkingUp"))
-        {
-            goSwordTemp.transform.localEulerAngles = new Vector3(0, 0, 0);
-        }
-        else if (this.m_animPlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("WalkingLeft"))
-        {
-            goSwordTemp.transform.localEulerAngles = new Vector3(0, 0, 90);
-        }
-        else if (this.m_animPlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("WalkingRight"))
-        {
-            goSwordTemp.transform.localEulerAngles = new Vector3(0, 0, 270);
-        }
+            this.m_bCanMove = false;
+            GameObject goSwordTemp = Instantiate(this.m_goSword, this.transform.position, this.m_goSword.transform.rotation);
+            #region //讓武器在生成時轉向
+            if (this.m_animPlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("WalkingDown"))
+            {
+                goSwordTemp.transform.localEulerAngles = new Vector3(0, 0, 180);
+            }
+            else if (this.m_animPlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("WalkingUp"))
+            {
+                goSwordTemp.transform.localEulerAngles = new Vector3(0, 0, 0);
+            }
+            else if (this.m_animPlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("WalkingLeft"))
+            {
+                goSwordTemp.transform.localEulerAngles = new Vector3(0, 0, 90);
+            }
+            else if (this.m_animPlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("WalkingRight"))
+            {
+                goSwordTemp.transform.localEulerAngles = new Vector3(0, 0, 270);
+            }
+            #endregion
+            goSwordTemp.GetComponent<Rigidbody2D>().AddForce(goSwordTemp.transform.up * this.m_fSwordForce);
+            goSwordTemp.GetComponent<SwordScript>().InitAndStrike();
+            goSwordTemp.GetComponent<SwordScript>().SetCallBack(this.EndAttack);
+        }        
+    }
+
+    private void EndAttack()
+    {
+        this.m_bCanMove = true;
     }
 }
