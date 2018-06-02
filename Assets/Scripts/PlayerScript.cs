@@ -160,11 +160,13 @@ public class PlayerScript : MonoBehaviour
             goSwordTemp.GetComponent<Rigidbody2D>().AddForce(goSwordTemp.transform.up * this.m_fSwordForce);
             goSwordTemp.GetComponent<SwordScript>().InitAndStrike();
             goSwordTemp.GetComponent<SwordScript>().SetCallBack(this.EndAttack);
+            this.m_animPlayerAnimator.SetBool("Attacking", true);
         }        
     }
 
     private void EndAttack()
     {
         this.m_bCanMove = true;
+        this.m_animPlayerAnimator.SetBool("Attacking", false);
     }
 }
