@@ -6,6 +6,7 @@ public class SwordScript : MonoBehaviour
 {
     public delegate void CallBack(); //定義某個函式規範 (回傳值，傳入的參數等等)
     [SerializeField] private float m_fLifeTimeMax = 0.5f;
+    [SerializeField] private GameObject m_goSwordEffect;
     private float m_fLifeTime = 0;
     private CallBack m_callBack = null;
 
@@ -25,7 +26,8 @@ public class SwordScript : MonoBehaviour
         if(this.m_fLifeTime <= 0)
         {
             this.gameObject.SetActive(false);
-            if(this.m_callBack != null)
+            Instantiate(this.m_goSwordEffect, this.transform.position, this.transform.rotation);
+            if (this.m_callBack != null)
             {
                 Debug.Log("WTF?");
                 this.m_callBack.Invoke();

@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fLifeTimeMax: 0.5
+  m_goSwordEffect: {fileID: 1912775065663076, guid: be778faf34adcf04c8e16fc7c9fcfc2d,
+    type: 2}
 --- !u!212 &212849331220694444
 SpriteRenderer:
   m_ObjectHideFlags: 1
