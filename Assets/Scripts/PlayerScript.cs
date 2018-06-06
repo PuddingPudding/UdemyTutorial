@@ -169,4 +169,10 @@ public class PlayerScript : MonoBehaviour
         this.m_bCanMove = true;
         this.m_animPlayerAnimator.SetBool("Attacking", false);
     }
+
+    public void Hit(int _iDmg)
+    {
+        this.m_iCurrentHP -= _iDmg;
+        this.SetHPUI();
+    }
 }

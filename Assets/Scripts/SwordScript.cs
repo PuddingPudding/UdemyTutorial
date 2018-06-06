@@ -29,7 +29,6 @@ public class SwordScript : MonoBehaviour
             Instantiate(this.m_goSwordEffect, this.transform.position, this.transform.rotation);
             if (this.m_callBack != null)
             {
-                Debug.Log("WTF?");
                 this.m_callBack.Invoke();
             }
             else
