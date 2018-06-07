@@ -13,8 +13,11 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private int m_iCurrentHP = 5;
     [SerializeField] private GameObject m_goSword;
     [SerializeField] private float m_fSwordForce = 200;
+    [SerializeField] private float m_fImiTime = 1;
+    [SerializeField] private SpriteRenderer m_srPlayeFace;
     private bool m_bCanMove = true;
     private List<Image> m_imgArrHP = new List<Image>();
+    private float m_fImiTimeCounter = 0;
 
     // Use this for initialization
     void Start()
@@ -75,6 +78,25 @@ public class PlayerScript : MonoBehaviour
         {
             this.m_iCurrentHP--;
             this.SetHPUI();
+        }
+
+        if(this.m_fImiTimeCounter > 0) //若還有無敵時間
+        {
+            this.m_fImiTimeCounter -= Time.deltaTime;
+            int iRanNum = Random.Range(0, 2);
+            if(iRanNum == 1)
+            {
+                this.m_srPlayeFace.enabled = true;
+            }
+            else
+            {
+                this.m_srPlayeFace.enabled = false;
+            }
+
+            if(m_fImiTimeCounter <= 0) //在扣完時間假如無敵時間結束
+            {
+                this.m_srPlayeFace.enabled = true;
+            }
         }
 
         this.Movement(v2MoveDir);
@@ -138,7 +160,10 @@ public class PlayerScript : MonoBehaviour
         if(this.m_bCanMove)
         {
             this.m_bCanMove = false;
-            GameObject goSwordTemp = Instantiate(this.m_goSword, this.transform.position, this.m_goSword.transform.rotation);
+            //GameObject goSwordTemp = Instantiate(this.m_goSword, this.transform.position, this.m_goSword.transform.rotation);
+            GameObject goSwordTemp = ObjectPool.Instance.GetPrefab(ePrefabType.SWORD);
+            goSwordTemp.transform.position = this.transform.position;
+            goSwordTemp.GetComponent<SwordScript>().InitAndStrike();
             #region //讓武器在生成時轉向
             if (this.m_animPlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("WalkingDown"))
             {
@@ -158,7 +183,6 @@ public class PlayerScript : MonoBehaviour
             }
             #endregion
             goSwordTemp.GetComponent<Rigidbody2D>().AddForce(goSwordTemp.transform.up * this.m_fSwordForce);
-            goSwordTemp.GetComponent<SwordScript>().InitAndStrike();
             goSwordTemp.GetComponent<SwordScript>().SetCallBack(this.EndAttack);
             this.m_animPlayerAnimator.SetBool("Attacking", true);
         }        
@@ -172,7 +196,11 @@ public class PlayerScript : MonoBehaviour
 
     public void Hit(int _iDmg)
     {
-        this.m_iCurrentHP -= _iDmg;
-        this.SetHPUI();
+        if(this.m_fImiTimeCounter <= 0)
+        {
+            this.m_iCurrentHP -= _iDmg;
+            this.m_fImiTimeCounter = this.m_fImiTime;
+            this.SetHPUI();
+        }        
     }
 }

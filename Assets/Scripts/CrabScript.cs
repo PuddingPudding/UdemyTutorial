@@ -23,9 +23,7 @@ public class CrabScript : MonoBehaviour
     void Start()
     {
         this.m_iCurrentHP = this.m_iMaxHP;
-        this.m_fDirChangeTimeCounter = this.m_fDirChangeTime;
-        this.m_iCurrentDir = 0;
-        m_v3MoveDir = Vector3.up;
+        this.m_fDirChangeTimeCounter = 0;
     }
 
     // Update is called once per frame
@@ -36,7 +34,6 @@ public class CrabScript : MonoBehaviour
         {
             this.m_fDirChangeTimeCounter += this.m_fDirChangeTime;
             this.m_iCurrentDir = Random.Range(0, 4);
-            Debug.Log("螃蟹轉向");
             switch (this.m_iCurrentDir)
             {
                 case 0:
@@ -75,7 +72,8 @@ public class CrabScript : MonoBehaviour
         if (this.m_iCurrentHP <= 0)
         {
             this.gameObject.SetActive(false);
-            Instantiate(this.m_goCrabEffect, this.transform.position, this.transform.rotation);
+            GameObject goCrabEffect = ObjectPool.Instance.GetPrefab(ePrefabType.CRAB_EFFECT , this.transform.position, this.transform.rotation);
+            goCrabEffect.GetComponent<EffectScript>().Init();
             if (this.m_callBack != null)
             {
                 this.m_callBack.Invoke();

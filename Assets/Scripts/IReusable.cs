@@ -4,5 +4,7 @@ using UnityEngine;
 
 public interface IReusable
 {
-    void Reuse();
+    void SetReuse(BackToPool _backToPool);
 }
+
+public delegate void BackToPool(GameObject _goInput); //回收到池子
