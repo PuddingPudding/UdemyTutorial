@@ -33,16 +33,21 @@ public class SwordScript : MonoBehaviour , IReusable
         this.m_fLifeTime -= Time.deltaTime;
         if(this.m_fLifeTime <= 0)
         {
-            this.gameObject.SetActive(false);
-            //Instantiate(this.m_goSwordEffect, this.transform.position, this.transform.rotation);
-            GameObject goSwordEffectTemp =  ObjectPool.Instance.GetPrefab(ePrefabType.SWORD_EFFECT , this.transform.position , this.transform.rotation);
-            goSwordEffectTemp.GetComponent<EffectScript>().Init();
-            if (this.m_callBack != null)
-            {
-                this.m_callBack.Invoke();
-            }
-            ObjectPool.Instance.BackToPool(ePrefabType.SWORD, this.gameObject);
+            this.SwordDisappear();
         }
+    }
+
+    public void SwordDisappear()
+    {
+        this.gameObject.SetActive(false);
+        //Instantiate(this.m_goSwordEffect, this.transform.position, this.transform.rotation);
+        GameObject goSwordEffectTemp = ObjectPool.Instance.GetPrefab(ePrefabType.SWORD_EFFECT, this.transform.position, this.transform.rotation);
+        goSwordEffectTemp.GetComponent<EffectScript>().Init();
+        if (this.m_callBack != null)
+        {
+            this.m_callBack.Invoke();
+        }
+        ObjectPool.Instance.BackToPool(ePrefabType.SWORD, this.gameObject);
     }
 
     public void SetCallBack(CallBack _callBack)

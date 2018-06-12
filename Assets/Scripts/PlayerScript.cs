@@ -31,7 +31,7 @@ public class PlayerScript : MonoBehaviour
         this.PlayerControl();
     }
 
-    void PlayerControl()
+    private void PlayerControl()
     {
         Vector2 v2MoveDir = Vector2.zero;
         float fAnimSpeed = 1; //動畫播放速度，預設為1
@@ -105,7 +105,7 @@ public class PlayerScript : MonoBehaviour
         this.m_animPlayerAnimator.speed = fAnimSpeed;
     }
 
-    void Movement(Vector2 _v2Dir)
+    private void Movement(Vector2 _v2Dir)
     {
         this.transform.Translate(_v2Dir.normalized * Time.deltaTime * this.m_fSpeed);
     }
