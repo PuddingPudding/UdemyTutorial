@@ -75,6 +75,7 @@ public class DragonScript : MonoBehaviour
         if (this.m_iCurrentHP <= 0)
         {
             this.gameObject.SetActive(false);
+            ObjectPool.Instance.GetPrefab(ePrefabType.DRAGON_EFFECT, this.transform.position, this.transform.rotation);
             if (this.m_callBack != null)
             {
                 this.m_callBack.Invoke();

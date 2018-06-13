@@ -7,9 +7,11 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private GameObject m_goSwordPrefab;
     [SerializeField] private GameObject m_goSwordEffect;
     [SerializeField] private GameObject m_goCrabEffect;
+    [SerializeField] private GameObject m_goDragonEffect;
     [SerializeField] private List<GameObject> m_listSwordPrefab;
     [SerializeField] private List<GameObject> m_listSwordEffect;
     [SerializeField] private List<GameObject> m_listCrabEffect;
+    [SerializeField] private List<GameObject> m_listDragonEffect;
     private static ObjectPool g_instance = null;
 
     private void Awake()
@@ -46,6 +48,10 @@ public class ObjectPool : MonoBehaviour
             case ePrefabType.CRAB_EFFECT:
                 listPrefabChose = this.m_listCrabEffect;
                 goPrefabChose = this.m_goCrabEffect;
+                break;
+            case ePrefabType.DRAGON_EFFECT:
+                listPrefabChose = this.m_listDragonEffect;
+                goPrefabChose = this.m_goDragonEffect;
                 break;
         }
 
@@ -85,6 +91,10 @@ public class ObjectPool : MonoBehaviour
                break;
             case ePrefabType.CRAB_EFFECT:
                 this.m_listCrabEffect.Add(_goPrefab);
+                _goPrefab.SetActive(false);
+                break;
+            case ePrefabType.DRAGON_EFFECT:
+                this.m_listDragonEffect.Add(_goPrefab);
                 _goPrefab.SetActive(false);
                 break;
         }
