@@ -7,9 +7,15 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private GameObject m_goSwordPrefab;
     [SerializeField] private GameObject m_goSwordEffect;
     [SerializeField] private GameObject m_goCrabEffect;
+    [SerializeField] private GameObject m_goDragonEffect;
+    [SerializeField] private GameObject m_goEnemyProjectile;
+    [SerializeField] private GameObject m_goEnemyProjectileEffect;
     [SerializeField] private List<GameObject> m_listSwordPrefab;
     [SerializeField] private List<GameObject> m_listSwordEffect;
     [SerializeField] private List<GameObject> m_listCrabEffect;
+    [SerializeField] private List<GameObject> m_listDragonEffect;
+    [SerializeField] private List<GameObject> m_listEnemyProjectile;
+    [SerializeField] private List<GameObject> m_listEnemyProjectileEffect;
     private static ObjectPool g_instance = null;
 
     private void Awake()
@@ -46,6 +52,18 @@ public class ObjectPool : MonoBehaviour
             case ePrefabType.CRAB_EFFECT:
                 listPrefabChose = this.m_listCrabEffect;
                 goPrefabChose = this.m_goCrabEffect;
+                break;
+            case ePrefabType.DRAGON_EFFECT:
+                listPrefabChose = this.m_listDragonEffect;
+                goPrefabChose = this.m_goDragonEffect;
+                break;
+            case ePrefabType.ENEMY_PROJECTILE:
+                listPrefabChose = this.m_listEnemyProjectile;
+                goPrefabChose = this.m_goEnemyProjectile;
+                break;
+            case ePrefabType.ENEMY_PROJECTILE_EFFECT:
+                listPrefabChose = this.m_listEnemyProjectileEffect;
+                goPrefabChose = this.m_goEnemyProjectileEffect;
                 break;
         }
 
@@ -85,6 +103,18 @@ public class ObjectPool : MonoBehaviour
                break;
             case ePrefabType.CRAB_EFFECT:
                 this.m_listCrabEffect.Add(_goPrefab);
+                _goPrefab.SetActive(false);
+                break;
+            case ePrefabType.DRAGON_EFFECT:
+                this.m_listDragonEffect.Add(_goPrefab);
+                _goPrefab.SetActive(false);
+                break;
+            case ePrefabType.ENEMY_PROJECTILE:
+                this.m_listEnemyProjectile.Add(_goPrefab);
+                _goPrefab.SetActive(false);
+                break;
+            case ePrefabType.ENEMY_PROJECTILE_EFFECT:
+                this.m_listEnemyProjectileEffect.Add(_goPrefab);
                 _goPrefab.SetActive(false);
                 break;
         }

@@ -9,10 +9,13 @@ public class DragonScript : MonoBehaviour
     [SerializeField] private float m_fDirTime = 0.7f; //每次方向轉變所需的時間
     [SerializeField] private Animator m_animator;
     [SerializeField] private int m_iMaxHP = 4;
+    [SerializeField] private float m_fAtkTime = 2;
+    [SerializeField] private float m_fShootingForce = 500;
     private int m_iCurrentHP;
     private float m_fDirTimer = 0;
     private int m_iCurrentDir = 0;
     private Vector2 m_v2MoveDir = Vector2.zero;
+    private float m_fAtkTimer = 0;
     private CallBack m_callBack = null;
 
     // Use this for initialization
@@ -50,6 +53,13 @@ public class DragonScript : MonoBehaviour
                     break;
             }
         }
+        this.m_fAtkTimer += Time.deltaTime;
+        if(this.m_fAtkTimer >= this.m_fAtkTime)
+        {
+            this.Attack();
+            this.m_fAtkTimer -= this.m_fAtkTime;
+        }
+
         this.Movement(this.m_v2MoveDir);
         this.m_animator.SetFloat("SpeedX", this.m_v2MoveDir.x);
         this.m_animator.SetFloat("SpeedY", this.m_v2MoveDir.y);
@@ -69,12 +79,36 @@ public class DragonScript : MonoBehaviour
         }
     }
 
+    private void Attack()
+    {
+        GameObject goProjectileTemp = ObjectPool.Instance.GetPrefab(ePrefabType.ENEMY_PROJECTILE , this.transform.position , this.transform.rotation);
+        if(this.m_animator.GetCurrentAnimatorStateInfo(0).IsName("WalkingDown") )
+        {
+            goProjectileTemp.transform.localEulerAngles = new Vector3(0, 0, 180);
+        }
+        else if (this.m_animator.GetCurrentAnimatorStateInfo(0).IsName("WalkingUp"))
+        {
+            goProjectileTemp.transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
+        else if (this.m_animator.GetCurrentAnimatorStateInfo(0).IsName("WalkingLeft"))
+        {
+            goProjectileTemp.transform.localEulerAngles = new Vector3(0, 0, 90);
+        }
+        else if (this.m_animator.GetCurrentAnimatorStateInfo(0).IsName("WalkingRight"))
+        {
+            goProjectileTemp.transform.localEulerAngles = new Vector3(0, 0, 270);
+        }
+        goProjectileTemp.GetComponent<Rigidbody2D>().AddForce(goProjectileTemp.transform.up * this.m_fShootingForce);
+        goProjectileTemp.GetComponent<ProjectileScript>().InitAndShoot();
+    }
+
     public void Hit(int _iDmg)
     {
         this.m_iCurrentHP -= _iDmg;
         if (this.m_iCurrentHP <= 0)
         {
             this.gameObject.SetActive(false);
+            ObjectPool.Instance.GetPrefab(ePrefabType.DRAGON_EFFECT, this.transform.position, this.transform.rotation);
             if (this.m_callBack != null)
             {
                 this.m_callBack.Invoke();
