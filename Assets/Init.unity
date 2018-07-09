@@ -290,6 +290,7 @@ Prefab:
     - target: {fileID: 1228663686918592, guid: 2505bda9b125de54caa0465cca14bea0, type: 2}
       propertyPath: m_IsActive
       value: 1
+<<<<<<< HEAD
       objectReference: {fileID: 0}
     - target: {fileID: 212825033102534200, guid: 2505bda9b125de54caa0465cca14bea0,
         type: 2}
@@ -300,6 +301,8 @@ Prefab:
         type: 2}
       propertyPath: m_SortingLayer
       value: 2
+=======
+>>>>>>> f4c6257473232091926f3b98b18935990c18b1be
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2505bda9b125de54caa0465cca14bea0, type: 2}
@@ -627,15 +630,21 @@ MonoBehaviour:
     type: 2}
   m_goEnemyProjectileEffect: {fileID: 1793557231779934, guid: fb8f986df672c834b9496c1c644462ec,
     type: 2}
+<<<<<<< HEAD
   m_goPotionPrefab: {fileID: 1605813292492332, guid: e452a112cc0f339419d497da37d41adb,
     type: 2}
+=======
+>>>>>>> f4c6257473232091926f3b98b18935990c18b1be
   m_listSwordPrefab: []
   m_listSwordEffect: []
   m_listCrabEffect: []
   m_listDragonEffect: []
   m_listEnemyProjectile: []
   m_listEnemyProjectileEffect: []
+<<<<<<< HEAD
   m_listPotionPrefab: []
+=======
+>>>>>>> f4c6257473232091926f3b98b18935990c18b1be
 --- !u!4 &527746741
 Transform:
   m_ObjectHideFlags: 0
@@ -903,6 +912,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 1228663686918592, guid: 2505bda9b125de54caa0465cca14bea0, type: 2}
       propertyPath: m_IsActive
       value: 1
@@ -914,6 +924,21 @@ Prefab:
     - target: {fileID: 4402062907869102, guid: 2505bda9b125de54caa0465cca14bea0, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0.08
+=======
+    - target: {fileID: 114516460373458716, guid: 2505bda9b125de54caa0465cca14bea0,
+        type: 2}
+      propertyPath: m_fSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114516460373458716, guid: 2505bda9b125de54caa0465cca14bea0,
+        type: 2}
+      propertyPath: m_iMaxHP
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228663686918592, guid: 2505bda9b125de54caa0465cca14bea0, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+>>>>>>> f4c6257473232091926f3b98b18935990c18b1be
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2505bda9b125de54caa0465cca14bea0, type: 2}
@@ -1624,11 +1649,14 @@ Prefab:
     - target: {fileID: 1228663686918592, guid: 2505bda9b125de54caa0465cca14bea0, type: 2}
       propertyPath: m_IsActive
       value: 1
+<<<<<<< HEAD
       objectReference: {fileID: 0}
     - target: {fileID: 212825033102534200, guid: 2505bda9b125de54caa0465cca14bea0,
         type: 2}
       propertyPath: m_SortingOrder
       value: 0
+=======
+>>>>>>> f4c6257473232091926f3b98b18935990c18b1be
       objectReference: {fileID: 0}
     - target: {fileID: 212825033102534200, guid: 2505bda9b125de54caa0465cca14bea0,
         type: 2}
@@ -2217,6 +2245,7 @@ Prefab:
     - target: {fileID: 1228663686918592, guid: 2505bda9b125de54caa0465cca14bea0, type: 2}
       propertyPath: m_IsActive
       value: 1
+<<<<<<< HEAD
       objectReference: {fileID: 0}
     - target: {fileID: 212825033102534200, guid: 2505bda9b125de54caa0465cca14bea0,
         type: 2}
@@ -2227,6 +2256,8 @@ Prefab:
         type: 2}
       propertyPath: m_SortingLayer
       value: 2
+=======
+>>>>>>> f4c6257473232091926f3b98b18935990c18b1be
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2505bda9b125de54caa0465cca14bea0, type: 2}

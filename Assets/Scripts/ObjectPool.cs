@@ -10,14 +10,20 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private GameObject m_goDragonEffect;
     [SerializeField] private GameObject m_goEnemyProjectile;
     [SerializeField] private GameObject m_goEnemyProjectileEffect;
+<<<<<<< HEAD
     [SerializeField] private GameObject m_goPotionPrefab;
+=======
+>>>>>>> f4c6257473232091926f3b98b18935990c18b1be
     [SerializeField] private List<GameObject> m_listSwordPrefab;
     [SerializeField] private List<GameObject> m_listSwordEffect;
     [SerializeField] private List<GameObject> m_listCrabEffect;
     [SerializeField] private List<GameObject> m_listDragonEffect;
     [SerializeField] private List<GameObject> m_listEnemyProjectile;
     [SerializeField] private List<GameObject> m_listEnemyProjectileEffect;
+<<<<<<< HEAD
     [SerializeField] private List<GameObject> m_listPotionPrefab;
+=======
+>>>>>>> f4c6257473232091926f3b98b18935990c18b1be
     private static ObjectPool g_instance = null;
 
     private void Awake()
@@ -67,10 +73,13 @@ public class ObjectPool : MonoBehaviour
                 listPrefabChose = this.m_listEnemyProjectileEffect;
                 goPrefabChose = this.m_goEnemyProjectileEffect;
                 break;
+<<<<<<< HEAD
             case ePrefabType.POTION_PREFAB:
                 listPrefabChose = this.m_listPotionPrefab;
                 goPrefabChose = this.m_goPotionPrefab;
                 break;
+=======
+>>>>>>> f4c6257473232091926f3b98b18935990c18b1be
         }
 
         if (listPrefabChose.Count > 0)
@@ -123,10 +132,13 @@ public class ObjectPool : MonoBehaviour
                 this.m_listEnemyProjectileEffect.Add(_goPrefab);
                 _goPrefab.SetActive(false);
                 break;
+<<<<<<< HEAD
             case ePrefabType.POTION_PREFAB:
                 this.m_listPotionPrefab.Add(_goPrefab);
                 _goPrefab.SetActive(false);
                 break;
+=======
+>>>>>>> f4c6257473232091926f3b98b18935990c18b1be
         }
     }
 }
