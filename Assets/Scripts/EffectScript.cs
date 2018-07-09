@@ -22,7 +22,7 @@ public class EffectScript : MonoBehaviour
     void Update()
     {
         m_fLifeTimeCounter -= Time.deltaTime;
-        if(this.m_fLifeTimeCounter <= 0)
+        if(this.m_fLifeTimeCounter <= 0 && this.isActiveAndEnabled)
         {
             ObjectPool.Instance.BackToPool(m_effectType,this.gameObject);
         }

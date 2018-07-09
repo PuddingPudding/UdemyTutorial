@@ -9,47 +9,47 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1763714788531662}
+  m_RootGameObject: {fileID: 1793859681535366}
   m_IsPrefabParent: 1
---- !u!1 &1763714788531662
+--- !u!1 &1793859681535366
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4768749794429808}
-  - component: {fileID: 212849331220694444}
-  - component: {fileID: 61929485537810334}
-  - component: {fileID: 50673605939189744}
-  - component: {fileID: 114259318651566356}
+  - component: {fileID: 4277060075918224}
+  - component: {fileID: 212765866682558702}
+  - component: {fileID: 58922274471873682}
+  - component: {fileID: 50324800997775714}
+  - component: {fileID: 114589635399308314}
   m_Layer: 0
-  m_Name: SwordPrefab
-  m_TagString: Sword
+  m_Name: EnemyProjectile
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4768749794429808
+--- !u!4 &4277060075918224
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1763714788531662}
+  m_GameObject: {fileID: 1793859681535366}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.57846963, y: -0.049164314, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalPosition: {x: -2.1961758, y: 1.8328421, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50673605939189744
+--- !u!50 &50324800997775714
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1763714788531662}
+  m_GameObject: {fileID: 1793859681535366}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -63,54 +63,43 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61929485537810334
-BoxCollider2D:
+--- !u!58 &58922274471873682
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1763714788531662}
+  m_GameObject: {fileID: 1793859681535366}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
-    newSize: {x: 0.16, y: 0.16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: -0.0033050538, y: 0.00549078}
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.16}
-  m_EdgeRadius: 0
---- !u!114 &114259318651566356
+  m_Radius: 0.06148405
+--- !u!114 &114589635399308314
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1763714788531662}
+  m_GameObject: {fileID: 1793859681535366}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b4783860b080a74284bc07a8408bfa7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8fe8846c323c9274a88c00edd7d04c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fLifeTimeMax: 0.5
-  m_goSwordEffect: {fileID: 1912775065663076, guid: be778faf34adcf04c8e16fc7c9fcfc2d,
-    type: 2}
---- !u!212 &212849331220694444
+  m_fLifeTimeMax: 1
+--- !u!212 &212765866682558702
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1763714788531662}
+  m_GameObject: {fileID: 1793859681535366}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -126,20 +115,21 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1040486259
-  m_SortingLayer: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1a3274fd742492547aa4cec26bab7059, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6e7a564ab3e3c0e4c9cfad776d89f285, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.47, y: 0.47}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

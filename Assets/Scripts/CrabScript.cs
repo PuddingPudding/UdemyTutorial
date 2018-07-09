@@ -14,11 +14,14 @@ public class CrabScript : MonoBehaviour
     [SerializeField] private Sprite m_sprFacingRight;
     [SerializeField] private float m_fDirChangeTime = 1.5f;
     [SerializeField] private float m_fSpeed = 3;
+    //[SerializeField] private float m_fDirChangeTimeForObs = 0.75f; //給碰撞用時改向用的計時器
     private float m_fDirChangeTimeCounter = 0;
     private int m_iCurrentHP;
     private CallBack m_callBack = null;
     private int m_iCurrentDir;
     private Vector3 m_v3MoveDir = Vector3.up;
+    //private float m_fDirChangeTimeForObsCtr = 0;
+    //private bool m_bChangeOnObs = true; //一般狀況下撞到牆壁就會轉向，但是不要讓他一直轉，所以用bool控制
     // Use this for initialization
     void Start()
     {
@@ -32,28 +35,22 @@ public class CrabScript : MonoBehaviour
         this.m_fDirChangeTimeCounter -= Time.deltaTime;
         if (this.m_fDirChangeTimeCounter <= 0)
         {
+            //Debug.Log("原本螃蟹速度方向: " + this.m_v3MoveDir);
+            this.m_iCurrentDir += Random.Range(1, 4); //移動方位從另外三個方向中隨機挑選
+            this.m_iCurrentDir %= 4;
             this.m_fDirChangeTimeCounter += this.m_fDirChangeTime;
-            this.m_iCurrentDir = Random.Range(0, 4);
-            switch (this.m_iCurrentDir)
-            {
-                case 0:
-                    this.m_v3MoveDir = Vector3.up;
-                    this.m_face.sprite = this.m_sprFacingUp;
-                    break;
-                case 1:
-                    this.m_v3MoveDir = Vector3.down;
-                    this.m_face.sprite = this.m_sprFacingDown;
-                    break;
-                case 2:
-                    this.m_v3MoveDir = Vector3.left;
-                    this.m_face.sprite = this.m_sprFacingLeft;
-                    break;
-                case 3:
-                    this.m_v3MoveDir = Vector3.right;
-                    this.m_face.sprite = this.m_sprFacingRight;
-                    break;
-            }
+            this.SwitchDir(this.m_iCurrentDir);
+            //Debug.Log("現在螃蟹速度方向: " + this.m_v3MoveDir);
         }
+        //if (!this.m_bChangeOnObs)//撞過後一小段時間內就算再次撞牆也不要換方向
+        //{
+        //    this.m_fDirChangeTimeForObsCtr += Time.deltaTime;
+        //    if (this.m_fDirChangeTimeForObsCtr >= this.m_fDirChangeTimeForObs)
+        //    {
+        //        this.m_fDirChangeTimeForObsCtr = 0;
+        //        this.m_bChangeOnObs = true;
+        //    }
+        //}
 
         this.Movement((Vector2)this.m_v3MoveDir);
     }
@@ -92,11 +89,42 @@ public class CrabScript : MonoBehaviour
             this.Hit(1);
             collision.gameObject.GetComponent<PlayerScript>().Hit(1);
         }
+        //else if(collision.gameObject.tag == "Obstacle" && this.m_bChangeOnObs)
+        //{
+        //    Debug.Log("幹林娘撞到了");
+        //    this.m_fDirChangeTimeCounter = 0;
+        //    this.m_bChangeOnObs = false;
+        //}
     }
 
     void Movement(Vector2 _v2Dir)
     {
         this.transform.Translate(_v2Dir.normalized * Time.deltaTime * this.m_fSpeed);
+    }
+
+    private void SwitchDir(int _iDir)
+    {
+        this.m_iCurrentDir = _iDir;
+        //Debug.Log("幹林爹呼叫了");
+        switch (this.m_iCurrentDir) 
+        {
+            case 0:
+                this.m_v3MoveDir = Vector3.up;
+                this.m_face.sprite = this.m_sprFacingUp;
+                break;
+            case 1:
+                this.m_v3MoveDir = Vector3.down;
+                this.m_face.sprite = this.m_sprFacingDown;
+                break;
+            case 2:
+                this.m_v3MoveDir = Vector3.left;
+                this.m_face.sprite = this.m_sprFacingLeft;
+                break;
+            case 3:
+                this.m_v3MoveDir = Vector3.right;
+                this.m_face.sprite = this.m_sprFacingRight;
+                break;
+        }
     }
 
     public void SetCallBack(CallBack _callBack)

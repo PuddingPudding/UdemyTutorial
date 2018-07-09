@@ -10,11 +10,13 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Sprite m_sprHeart;
     [SerializeField] private Sprite m_sprHeartBroken;
     [SerializeField] private RectTransform m_heartPos;
-    [SerializeField] private int m_iCurrentHP = 5;
+    [SerializeField] private int m_iMaxHP = 4;
+    [SerializeField] private int m_iMaxUpgradeHP = 8; //可升級的最大上限
     [SerializeField] private GameObject m_goSword;
     [SerializeField] private float m_fSwordForce = 200;
     [SerializeField] private float m_fImiTime = 1;
     [SerializeField] private SpriteRenderer m_srPlayeFace;
+    private int m_iCurrentHP = 0;
     private bool m_bCanMove = true;
     private List<Image> m_imgArrHP = new List<Image>();
     private float m_fImiTimeCounter = 0;
@@ -22,6 +24,7 @@ public class PlayerScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        this.m_iCurrentHP = this.m_iMaxHP;
         this.SetHPUI();
     }
 
@@ -202,5 +205,16 @@ public class PlayerScript : MonoBehaviour
             this.m_fImiTimeCounter = this.m_fImiTime;
             this.SetHPUI();
         }        
+    }
+
+    public void HPUpgrade(int _iUpNum)
+    {
+        this.m_iMaxHP += _iUpNum;
+        if(this.m_iMaxHP >= this.m_iMaxUpgradeHP)
+        {
+            this.m_iMaxHP = this.m_iMaxUpgradeHP;
+        }
+        this.m_iCurrentHP = this.m_iMaxHP;
+        this.SetHPUI();
     }
 }
